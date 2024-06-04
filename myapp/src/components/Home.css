@@ -1,0 +1,36 @@
+.container {
+    background-color: antiquewhite;
+    width: 70%;
+    margin: auto;
+    min-height: 70vh;
+}
+
+.container>h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 30px;
+}
+
+.container>form {
+    display: flex;
+    flex-direction: column;
+    padding: 4vmax 8vmax;
+    box-sizing: border-box;
+}
+
+input,
+textarea,
+button {
+    padding: 20px;
+    border: 1px solid rgb(0, 0, 0, 0.214);
+    border-radius: 5px;
+    margin: 10px;
+    font-size: 1.2rem;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    background-color: rgb(37, 37, 37);
+    color: white;
+}
