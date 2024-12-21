@@ -37,7 +37,7 @@ export const register = async(req, res, next) => {
         })
 
     } catch (error) {
-        console.log(`register error: ${error.message}`);
+        console.log(`register error: ${error}`);
         return next(errorHandler(500, "Internal server error"));
     }
 }
@@ -66,7 +66,7 @@ export const login = async(req, res, next) => {
             );
 
         } catch (error) {
-            console.log(`Token generation error ${error.message}`);
+            console.log(`Token generation error ${error}`);
             next(errorHandler(500, 'Token generation error . Please try again'));
         }
 
