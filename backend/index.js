@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js';
+import cookieParser from 'cookie-parser';
 const app = express();
 dotenv.config();
 const password = process.env.password;
@@ -21,8 +22,15 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // middlewre
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
 app.use(express.json());
-app.use(cors());
+
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
 
 
