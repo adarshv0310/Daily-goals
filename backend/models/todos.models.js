@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import User from './user.models'
 
-const todoSchema = new mongoose.Schema({
+const TodoSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
@@ -23,3 +23,6 @@ const todoSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+
+const Todo = mongoose.model('Todo', TodoSchema);
