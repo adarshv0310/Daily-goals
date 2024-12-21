@@ -37,7 +37,7 @@ export const register = async(req, res, next) => {
         })
 
     } catch (error) {
-        console.log(`register error: ${error}`);
+        console.log(`register error: ${error.message}`);
         return next(errorHandler(500, "Internal server error"));
     }
 }
@@ -56,6 +56,27 @@ export const login = async(req, res, next) => {
         if (!validpassword) {
             return next(errorHandler(401, 'Invalid password '));
         }
+
+        let token;
+        try {
+            token = jwt.sign({ id: existinguser._id, },
+                process.env.jwt_secret, {
+                    expiresIn: '1h'
+                }
+            );
+
+        } catch (error) {
+            console.log(`Token generation error ${error.message}`);
+            next(errorHandler(500, 'Token generation error . Please try again'));
+        }
+
+
+        res.cookie('access-token', token, { httpOnly: true, secure: true })
+            .status(201)
+            .json({
+                success: true,
+                message: 'User logged in successfully',
+            })
 
 
     } catch (error) {
