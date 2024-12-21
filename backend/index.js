@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-
+import userRouter from './routes/user.route.js';
 const app = express();
 dotenv.config();
 const password = process.env.password;
@@ -23,6 +23,12 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(express.json());
 app.use(cors());
+
+
+
+//routes
+
+app.use('/user', userRouter);
 
 
 app.use((req, res, err, next) => {

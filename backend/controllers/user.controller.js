@@ -1,8 +1,8 @@
-import User from "../models/user.models";
-import { errorHandler } from "../utils/error";
+import User from "../models/user.models.js";
+import { errorHandler } from "../utils/error.js";
 import bcrypt from 'bcrypt';
 
-const register = async(req, res, next) => {
+export const register = async(req, res, next) => {
     const { email, password, name } = req.body;
     try {
 
