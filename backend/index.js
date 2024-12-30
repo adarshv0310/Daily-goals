@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js';
 import cookieParser from 'cookie-parser';
+import todoRouter from './routes/todos.routes.js'
 const app = express();
 dotenv.config();
 const password = process.env.password;
@@ -37,6 +38,7 @@ app.use(cookieParser());
 //routes
 
 app.use('/user', userRouter);
+app.use('/todos', todoRouter);
 
 
 app.use((req, res, err, next) => {
