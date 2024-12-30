@@ -1,6 +1,6 @@
-import Todo from "../models/todos.models";
-import User from "../models/user.models";
-import { errorHandler } from "../utils/error";
+import Todo from "../models/todos.models.js";
+import User from "../models/user.models.js";
+import { errorHandler } from "../utils/error.js";
 
 
 
