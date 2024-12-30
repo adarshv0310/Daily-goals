@@ -36,3 +36,28 @@ export const getTodobyId = async(req, res, next) => {
         return next(errorHandler(500, 'Internal server error'));
     }
 }
+
+
+export const createTodo = async(req, res, next) => {
+    try {
+
+        const { content, createdBy, subTodos } = req.body;
+
+        const user = await User.findById({ createdBy });
+        if (!user) {
+            return next(errorHandler(404, 'User not found'));
+        }
+
+        const newTodo = new Todo({
+            content,
+            createdBy,
+            subTodos,
+        });
+
+        const savedTodo = await newTodo.save();
+        res.status(201).json(savedTodo);
+    } catch (error) {
+        console.log(`Login error${error.message}`);
+        return next(errorHandler(500, 'Internal server error'));
+    }
+}

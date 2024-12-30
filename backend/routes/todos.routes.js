@@ -1,7 +1,9 @@
 import express from 'express';
 import {
     getTodos,
-    getTodobyId
+    getTodobyId,
+    createTodo
+
 } from "../controllers/todos.controller.js";
 
 import { userVerification } from "../middlewares/userverification.middleware.js";
@@ -10,6 +12,6 @@ const router = express.Router();
 
 
 router.get('/getalltodos', userVerification, getTodos);
-
+router.post('/createtodo', userVerification, createTodo);
 
 export default router;
