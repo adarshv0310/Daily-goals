@@ -22,7 +22,7 @@ export const getTodos = async(req, res, next) => {
 export const getTodobyId = async(req, res, next) => {
     try {
 
-        const todoId = req.param.TodoId;
+        const todoId = req.param.todoId;
         const todo = await Todo.findById(todoId).populate('subTodos');
 
         if (!todo) {
@@ -41,9 +41,10 @@ export const getTodobyId = async(req, res, next) => {
 export const createTodo = async(req, res, next) => {
     try {
 
-        const { content, createdBy, subTodos } = req.body;
+        const { content } = req.body;
+        const createdBy = req.user.id;
 
-        const user = await User.findById({ createdBy });
+        const user = await User.findById(createdBy);
         if (!user) {
             return next(errorHandler(404, 'User not found'));
         }
@@ -51,13 +52,13 @@ export const createTodo = async(req, res, next) => {
         const newTodo = new Todo({
             content,
             createdBy,
-            subTodos,
+
         });
 
         const savedTodo = await newTodo.save();
         res.status(201).json(savedTodo);
     } catch (error) {
-        console.log(`Login error${error.message}`);
+        console.log(`create todo error${error.message}`);
         return next(errorHandler(500, 'Internal server error'));
     }
 }
