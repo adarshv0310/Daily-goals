@@ -6,7 +6,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const getTodos = async(req, res, next) => {
     try {
-        const userId = req.params.userId;
+        const userId = req.user.id;
         const todos = await Todo.find({ createdBy: userId }).populate('subTodos');
 
         res.status(200)
@@ -44,6 +44,7 @@ export const createTodo = async(req, res, next) => {
     try {
 
         const { content, subTodos } = req.body;
+
         const createdBy = req.user.id;
 
         const user = await User.findById(createdBy);
