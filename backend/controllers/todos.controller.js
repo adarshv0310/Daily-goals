@@ -6,7 +6,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const getTodos = async(req, res, next) => {
     try {
-        const userId = req.param.userId;
+        const userId = req.params.userId;
         const todos = await Todo.find({ createdBy: userId }).populate('subTodos');
 
         res.status(200)
@@ -22,7 +22,9 @@ export const getTodos = async(req, res, next) => {
 export const getTodobyId = async(req, res, next) => {
     try {
 
-        const todoId = req.param.todoId;
+        const todoId = req.params.todoId;
+        console.log('TodoId:', todoId);
+
         const todo = await Todo.findById(todoId).populate('subTodos');
 
         if (!todo) {
@@ -32,7 +34,7 @@ export const getTodobyId = async(req, res, next) => {
 
 
     } catch (error) {
-        console.log(`Login error${error.message}`);
+        console.log(`Todobyid error: ${error.message}`);
         return next(errorHandler(500, 'Internal server error'));
     }
 }
@@ -41,7 +43,7 @@ export const getTodobyId = async(req, res, next) => {
 export const createTodo = async(req, res, next) => {
     try {
 
-        const { content } = req.body;
+        const { content, subTodos } = req.body;
         const createdBy = req.user.id;
 
         const user = await User.findById(createdBy);
@@ -52,6 +54,7 @@ export const createTodo = async(req, res, next) => {
         const newTodo = new Todo({
             content,
             createdBy,
+            subTodos,
 
         });
 
